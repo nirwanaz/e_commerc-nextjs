@@ -5,6 +5,20 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 
+const userSidebars = [
+	{name: "your_profile", url: "/me"},
+	{name: "orders", url: "/me/orders"},
+	{name: "update_profile", url: "/me/update"},
+	{name: "update_password", url: "/me/update_password"},
+];
+
+const adminSidebars = [
+	{name: "new_product_", url: "/admin/products/new"},
+	{name: "all_products_", url: "/admin/products"},
+	{name: "all_orders_", url: "/admin/orders"},
+	{name: "all_users_", url: "/admin/users"},
+]
+
 const Sidebar = () => {
 	const { user } = useAuth();
 
@@ -17,90 +31,38 @@ const Sidebar = () => {
 			<ul className="sidebar">
 				{user?.role === "admin" && (
 					<>
-						<li>
-							{" "}
-							<Link
-								href="/admin/products/new"
-								className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
-							>
-								New Product{" "}
-								<span className="text-red-500">(Admin)</span>
-							</Link>
-						</li>
-
-						<li>
-							{" "}
-							<Link
-								href="/admin/products"
-								className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
-							>
-								All Products{" "}
-								<span className="text-red-500">(Admin)</span>
-							</Link>
-						</li>
-
-						<li>
-							{" "}
-							<Link
-								href="/admin/orders"
-								className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
-							>
-								All Orders{" "}
-								<span className="text-red-500">(Admin)</span>
-							</Link>
-						</li>
-
-						<li>
-							{" "}
-							<Link
-								href="/admin/users"
-								className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
-							>
-								All Users{" "}
-								<span className="text-red-500">(Admin)</span>
-							</Link>
-						</li>
+						{
+							adminSidebars.map((adminSidebar, index) => (
+								<li key={index}>
+									{" "}
+									<Link
+										href={adminSidebar.url}
+										className="block px-3 py-2 text-gray-800 dark:text-white hover:bg-blue-100 hover:text-blue-500 rounded-md capitalize"
+									>
+										{ adminSidebar.name.replaceAll("_"," ") }
+										<span className="text-red-500">(Admin)</span>
+									</Link>
+								</li>
+							))
+						}
 
 						<hr />
 					</>
 				)}
 
-				<li>
-					{" "}
-					<Link
-						href="/me"
-						className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
-					>
-						Your Profile
-					</Link>
-				</li>
-				<li>
-					{" "}
-					<Link
-						href="/me/orders"
-						className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
-					>
-						Orders
-					</Link>
-				</li>
-				<li>
-					{" "}
-					<Link
-						href="/me/update"
-						className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
-					>
-						Update Profile
-					</Link>
-				</li>
-				<li>
-					{" "}
-					<Link
-						href="/me/update_password"
-						className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
-					>
-						Update Password
-					</Link>
-				</li>
+				{
+					userSidebars.map((userSidebar, index) => (
+						<li key={index}>
+							{" "}
+							<Link
+								href={userSidebar.url}
+								className="block px-3 py-2 text-gray-800 dark:text-white hover:bg-blue-100 hover:text-blue-500 rounded-md capitalize"
+							>
+								{ userSidebar.name.replace("_", " ") }
+							</Link>
+						</li>
+					))
+				}
 
 				<li>
 					{" "}

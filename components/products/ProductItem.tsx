@@ -14,7 +14,7 @@ const ProductItem = ({ product }: { product: ProductProps }) => {
 			product: product._id,
 			name: product.name,
 			price: product.price,
-			image: product.images[0]?.url,
+			image: product.images? product.images[0]?.url : "",
 			stock: product.stock,
 			seller: product.seller,
 			quantity: 1
@@ -28,8 +28,8 @@ const ProductItem = ({ product }: { product: ProductProps }) => {
 					<div className="relative w-4/5 h-4/6">
 						<Image
 							src={
-								product?.images[0]
-									? product?.images[0].url
+								product.images
+									? product.images[0].url
 									: "/images/default_product.png"
 							}
 							alt="product anme"

@@ -15,9 +15,7 @@ const Profile = ({ addresses }: { addresses: userAddress[] }) => {
 					<img
 						className="w-16 h-16 rounded-full mr-4"
 						src={
-							user?.avatar
-								? user?.avatar?.url
-								: "/images/default.png"
+							user?.avatar?.url || "/images/default.png"
 						}
 						alt={user?.name}
 					/>

@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthContextProps, User, userAddress } from "@/interfaces";
+import { AuthContextProps, User, userAddress, userData } from "@/interfaces";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { ReactNode, createContext, useContext, useState } from "react";
@@ -111,6 +111,43 @@ export const AuthProvider:React.FC<{ children: ReactNode }> = ({ children }) => 
         }
     }
 
+    const updateUser = async (id: string, userData: userData) => {
+        try {
+            const { data } = await axios.put(`${process.env.API_URL}/api/admin/users/${id}`, { userData });
+
+            if (data?.success) {
+                setUpdated(true);
+                router.replace(`/admin/users`);
+            }
+        } catch (error) {
+            const axiosError = error as AxiosError<{ message: string }>;
+
+            if (axiosError.response) {
+                setError(axiosError.response.data.message)
+            } else {
+                setError("An Error occured during update user")
+            }
+        }
+    }
+
+    const deleteUser = async (id: string) => {
+        try {
+            const { data } = await axios.delete(`${process.env.API_URL}/api/admin/users/${id}`);
+
+            if (data?.success) {
+                router.replace(`/admin/users`);
+            }
+        } catch (error) {
+            const axiosError = error as AxiosError<{ message: string }>;
+
+            if (axiosError.response) {
+                setError(axiosError.response.data.message)
+            } else {
+                setError("An Error occured during delete user")
+            }
+        }
+    }
+
     const addNewAddress = async (address: userAddress) => {
         try {
             const { data } = await axios.post<userAddress>(
@@ -179,6 +216,8 @@ export const AuthProvider:React.FC<{ children: ReactNode }> = ({ children }) => 
                 registerUser,
                 updateProfile,
                 updatePassword,
+                updateUser,
+                deleteUser,
                 addNewAddress,
                 updateAddress,
                 deleteAddress,

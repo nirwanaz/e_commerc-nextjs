@@ -1,6 +1,6 @@
 import { createRouter } from "next-connect";
 import dbConnect from "@/backend/db.config";
-import { newProduct } from "@/backend/controllers/productController";
+import { deleteProduct, updateProduct } from "@/backend/controllers/productController";
 import { NextApiRequest, NextApiResponse } from "next";
 import errors from "@/backend/middleware/errors";
 import { authorizedRoles, isAuthenticatedUser } from "@/backend/middleware/auth";
@@ -11,7 +11,8 @@ dbConnect();
 
 router
     .use(isAuthenticatedUser, authorizedRoles("admin"))
-    .post(newProduct);
+    .put(updateProduct)
+    .delete(deleteProduct)
 
 export default router.handler({
     onError: errors

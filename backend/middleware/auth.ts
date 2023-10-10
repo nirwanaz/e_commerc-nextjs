@@ -37,7 +37,9 @@ const authorizedRoles = (...roles: any) => {
             throw errorhandler;
         }
 
-        next()
+        console.log("authorized");
+
+        return next();
     };
 };
 

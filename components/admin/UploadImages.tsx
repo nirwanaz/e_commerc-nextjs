@@ -2,13 +2,21 @@
 
 import Image from "next/image";
 import { useProduct } from "@/context/ProductContext";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const UploadImages = ({ id }: {id: string}) => {
 	const { uploadProductImages, error, loading, clearErrors } = useProduct();
 
-	const [images, setImages] = useState<File[]>([]);
+	const [images, setImages] = useState<Blob[]>([]);
 	const [imagesPreview, setImagesPreview] = useState<string[]>([]);
+
+	useEffect(() => {
+		if (error) {
+			toast.error(error);
+			clearErrors();
+		}
+	}, [error])
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const files = Array.from(e.target.files || []);

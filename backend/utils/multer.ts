@@ -3,18 +3,15 @@ import multer, {StorageEngine, FileFilterCallback, MulterError} from "multer"
 
 const storage: StorageEngine = multer.diskStorage({
     destination: function (req, file, cb) {
-        log("file from method storage multer: ", file.originalname)
         cb(null, "public/uploads");
     },
     filename: function (req, file, cb) {
-        log("file from method storage multer: ", file.originalname)
         cb(null, new Date().toISOString() + "-" + file.originalname)
     }
 })
 
 const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: FileFilterCallback) => {
     const fileFormats: string[] = ["jpeg", "png", "jpg"];
-    log("file from method filefilter multer: ", file.originalname)
     const allowed: boolean = fileFormats.includes(file.mimetype.split('/')[1]);
 
     if (!allowed) {

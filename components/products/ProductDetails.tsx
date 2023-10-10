@@ -1,12 +1,15 @@
 "use client";
 
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import Image from "next/image";
 import { CartContext } from "@/context/CartContext";
 import { Rating } from "react-simple-star-rating";
 import BreadCrumbs from "@/components/layouts/BreadCrumbs";
 import { CartContextProps, ProductProps } from "@/interfaces";
 import { FaShoppingCart } from "react-icons/fa";
+import { useOrder } from "@/context/OrderContext";
+import NewReview from "../review/NewReview";
+import Reviews from "../review/Reviews";
 
 interface ProductDetailsProps {
     product: ProductProps
@@ -14,27 +17,32 @@ interface ProductDetailsProps {
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
   const { addItemToCart } = useContext(CartContext) as CartContextProps;
-  
+  const { canUserReview, canReview } = useOrder();
+
   const imgRef = useRef<HTMLImageElement>(null);
 
-  const setImgPreview = (url: string) => {
+  const setImgPreview = (url: string | undefined) => {
     if (imgRef.current){
-        imgRef.current.src = url;
+        imgRef.current.src = url || "";
         imgRef.current.height = 340;
         imgRef.current.width = 340;
     }    
   };
 
+  useEffect(() => {
+    canUserReview(product?._id);
+  })
+
   const inStock = product?.stock >= 1;
 
   const addToCartHandler = () => {
     addItemToCart({
-      product: product._id,
-      name: product.name,
-      price: product.price,
-      image: product.images[0]?.url,
-      stock: product.stock,
-      seller: product.seller,
+      product: product?._id,
+      name: product?.name,
+      price: product?.price,
+      image: product.images ? product.images[0].url : "",
+      stock: product?.stock,
+      seller: product?.seller,
       quantity: 1
     })
   }
@@ -58,7 +66,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                   ref={imgRef}
                   className="object-cover inline-block"
                   src={
-                    product?.images[0]
+                    product?.images
                       ? product?.images[0].url
                       : "/images/default_product.png"
                   }
@@ -76,7 +84,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                   >
                     <Image
                       className="w-14 h-14"
-                      src={img.url}
+                      src={img.url || ""}
                       alt="Product title"
                       width="500"
                       height="500"
@@ -153,14 +161,14 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             </main>
           </div>
 
-          {/* <NewReview /> */}
+          {canReview && <NewReview product={product} />}
           <hr />
 
           <div className="font-semibold">
             <h1 className="text-gray-500 review-title mb-6 mt-10 text-2xl">
               Other Customers Reviews
             </h1>
-            {/* <Reviews /> */}
+            <Reviews reviews={product?.reviews} />
           </div>
         </div>
       </section>

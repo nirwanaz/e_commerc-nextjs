@@ -1,3 +1,4 @@
+import { deleteProduct } from "@/backend/controllers/productController"
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from "next"
 import { Key } from "react"
 
@@ -12,17 +13,26 @@ export interface productImage {
     url: string
 }
 
+export interface ProductReview {
+    user: User;
+    rating: number;
+    comment: string;
+    createdAt: string;
+    productId: string;
+}
+
 export interface ProductProps {
-    name: string,
-    description: string,
-    price: number,
-    images?: productImage[],
+    name: string;
+    description: string;
+    price: number;
+    images: productImage[];
     category: string,
-    seller: string,
-    stock: number,
-    ratings?: number,
-    createdAt?: string,
-    _id?: Key
+    seller: string;
+    stock: number;
+    ratings?: number;
+    createdAt?: string;
+    _id: string;
+    reviews: ProductReview[];
 }
 
 export type ProductContextProps = {
@@ -32,11 +42,14 @@ export type ProductContextProps = {
     setUpdated: (updated: boolean) => void;
     newProduct: (product: ProductProps) => void;
     uploadProductImages: (formData: FormData, id: string) => void;
+    updateProduct: (product: ProductProps, id: string) => void;
+    deleteProduct: (id: string) => void;
+    postReview: (reviewData: { rating: number, comment: string, productId: string }) => void;
     clearErrors: () => void;
 }
 
 export interface CartItemProps {
-    product: string | number;
+    product: string;
     name: string;
     price: number;
     image?: string;
@@ -79,6 +92,18 @@ export interface OrderProps {
     createdAt: string;
 }
 
+export interface OrderContextProps {
+    error: string | null;
+    loading: boolean | null;
+    updated: boolean | null;
+    canReview: boolean;
+    setUpdated: (updated: boolean) => void;
+    updateOrder: (id: string, orderData: { orderStatus: string }) => void;
+    deleteOrder: (id: string) => void;
+    canUserReview: (id: string) => void;
+    clearErrors: () => void;
+}
+
 export type CartContextProps = {
     cart: CartProps;
     addItemToCart: (item: CartItemProps) => void;
@@ -96,8 +121,9 @@ export interface User {
         public_id: string,
         url: string
     };
-    role: string | "user",
-    createdAt: string
+    role: string | "user";
+    createdAt: string;
+    _id: string;
 }
 
 export interface userAddress {
@@ -110,6 +136,12 @@ export interface userAddress {
     country: string;
 }
 
+export interface userData {
+    name: string;
+    email: string;
+    role: string;
+}
+
 export interface AuthContextProps {
     user: User | null;
     error: string | null;
@@ -120,6 +152,8 @@ export interface AuthContextProps {
     registerUser: (userData: { name: string, email: string, password: string }) => void;
     updateProfile: (formData: FormData) => void;
     updatePassword: (currentPassword: string, newPassword: string) => void;
+    updateUser: (id: string, userData: userData) => void;
+    deleteUser: (id: string) => void;
     addNewAddress: (address: userAddress) => void;
     updateAddress: (id: string, address: userAddress) => void;
     deleteAddress: (id: string) => void;

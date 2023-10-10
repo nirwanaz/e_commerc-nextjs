@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { OrderProvider } from "@/context/OrderContext";
 
 interface GlobalProviderProps {
 	children: ReactNode;
@@ -19,9 +20,11 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
             <ToastContainer position="bottom-right" />
             <AuthProvider>
                 <CartProvider>
-                    <ProductProvider>
-                        <SessionProvider>{children}</SessionProvider>
-                    </ProductProvider>
+                    <OrderProvider>
+                        <ProductProvider>
+                            <SessionProvider>{children}</SessionProvider>
+                        </ProductProvider>
+                    </OrderProvider>
                 </CartProvider>
             </AuthProvider>
         </>

@@ -20,8 +20,7 @@ export const config = {
 const uploadMiddleware = upload.array("image");
 
 router
-    .use(isAuthenticatedUser)
-    .use(authorizedRoles)
+    .use(isAuthenticatedUser, authorizedRoles("admin"))
     .use(uploadMiddleware as any)
     .post(uploadProductImages)
 

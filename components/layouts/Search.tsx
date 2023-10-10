@@ -1,14 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { FormEventHandler, useState } from "react";
+import { FormEvent, useState } from "react";
 
 const Search = () => {
   const [keyword, setKeyword] = useState('');
 
   const router = useRouter();
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (keyword) {

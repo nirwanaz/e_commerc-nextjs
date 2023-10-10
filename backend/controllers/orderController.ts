@@ -3,10 +3,41 @@ import Stripe from "stripe";
 import Order from "../models/order";
 import { CartItemProps } from "@/interfaces";
 import APIFilters from "../utils/APIFIlters";
+import ErrorHandler from "../utils/errorHandler";
 
 const stripeConfig = {}
 
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY as string, stripeConfig as Stripe.StripeConfig);
+
+export const getOrders = async (req, res) => {
+    const resPerPage = 2;
+    const ordersCount = await Order.countDocuments();
+
+    const apiFilters = new APIFilters(Order.find(), req.query).pagination(resPerPage);
+
+    const orders = await apiFilters.query.find().populate("shippingInfo user");
+
+    res.status(200).json({
+        ordersCount,
+        resPerPage,
+        orders,
+    })
+}
+
+export const getOrder = async (req, res, next) => {
+    const order = await Order.findById(req.query.id).populate("shippingInfo user");
+
+    if (!order) {
+        return next(new ErrorHandler({
+            message: "No Order found with this ID",
+            statusCode: 404,
+        }));
+    }
+
+    res.status(200).json({
+        order,
+    });
+}
 
 export const myOrders = async (req, res) => {
     const resPerPage = 2;
@@ -23,6 +54,76 @@ export const myOrders = async (req, res) => {
         resPerPage,
         orders
     })
+}
+
+export const updateOrder = async (req, res, next) => {
+    const orderId = req.query.id;
+
+    if (!orderId) {
+        return next(new ErrorHandler({
+            message: "Invalid Order ID",
+            statusCode: 400,
+        }));
+    }
+
+    let order = await Order.findById(orderId);
+
+    if (!order) {
+        return next(new ErrorHandler({
+            message: "No Order found with this ID",
+            statusCode: 404,
+        }));
+    }
+
+    order = await Order.findByIdAndUpdate(orderId, {
+        orderStatus: req.body.orderStatus,
+    });
+
+    res.status(200).json({
+        success: true,
+        order,
+    });
+}
+
+export const deleteOrder = async (req, res, next) => {
+    const orderId = req.query.id;
+
+    if (!orderId) {
+        return next(new ErrorHandler({
+            message: "Invalid Order ID",
+            statusCode: 404,
+        }));
+    }
+
+    let order = await Order.findById(orderId);
+
+    if (!order) {
+        return next(new ErrorHandler({
+            message: "No Order found with this ID",
+            statusCode: 404,
+        }));
+    }
+
+    await order.deleteOne();
+
+    res.status(200).json({
+        success: true,
+    });
+}
+
+export const canReview = async (req, res) => {
+    const productId = req.query.productId;
+
+    const orders = await Order.find({
+        user: req?.user?._id, 
+        "orderItems.product": productId
+    });
+
+    let canReview = orders?.length >= 1 ? true : false;
+
+    res.status(200).json({
+        canReview,
+    });
 }
 
 export const checkoutSession = async (req, res) => {

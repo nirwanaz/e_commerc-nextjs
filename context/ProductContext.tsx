@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductContextProps, ProductProps, userAddress } from "@/interfaces";
+import { ProductContextProps, ProductProps, ProductReview, userAddress } from "@/interfaces";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { ReactNode, createContext, useContext, useState } from "react";
@@ -48,6 +48,7 @@ export const ProductProvider:React.FC<{ children: ReactNode }> = ({ children }) 
                 setLoading(false);
                 router.replace("/admin/products");
             }
+
         } catch (error) {
             const axiosError = error as AxiosError<{ message: string }>;
 
@@ -59,35 +60,57 @@ export const ProductProvider:React.FC<{ children: ReactNode }> = ({ children }) 
         }
     }
 
-    const updateProduct = async (id: string, product: ProductProps) => {
+    const updateProduct = async (product: ProductProps, id: string) => {
         try {
-            const { data } = await axios.put(`${process.env.API_URL}/api/product/${id}`,
+            const { data } = await axios.put(`${process.env.API_URL}/api/admin/products/${id}`,
             product);
 
-            if (data?.product) setUpdated(true)
+            if (data?.product) {
+                setUpdated(true);
+                router.replace(`/admin/products/${id}`);
+            }
         } catch (error) {
              const axiosError = error as AxiosError<{ message: string }>;
 
             if (axiosError.response) {
                 setError(axiosError.response.data.message)
             } else {
-                setError("An Error occured during updated address")
+                setError("An Error occured during updated product")
             }
         }
     }
 
-    const deleteAddress = async (id: string) => {
+    const deleteProduct = async (id: string) => {
         try {
-            const { data } = await axios.delete(`${process.env.API_URL}/api/address/${id}`)
+            const { data } = await axios.delete(`${process.env.API_URL}/api/admin/products/${id}`)
 
-            if (data?.success) router.push("/me")
+            if (data?.success) router.replace("/admin/products");
+
         } catch (error) {
              const axiosError = error as AxiosError<{ message: string }>;
 
             if (axiosError.response) {
                 setError(axiosError.response.data.message)
             } else {
-                setError("An Error occured during deleted address")
+                setError("An Error occured during deleted product")
+            }
+        }
+    }
+
+    const postReview = async (reviewData: { rating: number, comment: string, productId: string }) => {
+        try {
+            const { data } = await axios.put(`${process.env.API_URL}/api/products/review`, reviewData);
+
+            if (data?.success) {
+                router.replace(`/product/${reviewData?.productId}`);
+            }
+        } catch (error) {
+            const axiosError = error as AxiosError<{ message: string }>;
+
+            if (axiosError.response) {
+                setError(axiosError.response.data.message)
+            } else {
+                setError("An Error occured during post review")
             }
         }
     }
@@ -105,7 +128,10 @@ export const ProductProvider:React.FC<{ children: ReactNode }> = ({ children }) 
                 setUpdated,
                 newProduct,
                 uploadProductImages,
-                clearErrors
+                updateProduct,
+                deleteProduct,
+                postReview,
+                clearErrors,
             }}
         >
             {children}
