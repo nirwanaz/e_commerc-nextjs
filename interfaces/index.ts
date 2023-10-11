@@ -21,6 +21,15 @@ export interface ProductReview {
     productId: string;
 }
 
+export interface NewProductProps {
+    name: string;
+    description: string;
+    price: number;
+    category: string,
+    seller: string;
+    stock: number;
+}
+
 export interface ProductProps {
     name: string;
     description: string;
@@ -40,9 +49,9 @@ export type ProductContextProps = {
     loading: boolean | null;
     updated: boolean;
     setUpdated: (updated: boolean) => void;
-    newProduct: (product: ProductProps) => void;
+    newProduct: (product: NewProductProps) => void;
     uploadProductImages: (formData: FormData, id: string) => void;
-    updateProduct: (product: ProductProps, id: string) => void;
+    updateProduct: (product: NewProductProps, id: string) => void;
     deleteProduct: (id: string) => void;
     postReview: (reviewData: { rating: number, comment: string, productId: string }) => void;
     clearErrors: () => void;

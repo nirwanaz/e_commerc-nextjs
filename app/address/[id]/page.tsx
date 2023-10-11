@@ -17,7 +17,7 @@ const getAddress = async (id: string) => {
     return data?.address;
 }
 
-const UpdateAddressPage = async ({ params }) => {
+const UpdateAddressPage = async ({ params }: { params: { id: string } }) => {
     const address = await getAddress(params?.id);
 
     return <UpdateAddress id={params?.id} address={address} />

@@ -2,7 +2,7 @@ import { log } from "console";
 import Address from "../models/address"
 import ErrorHandler from "../utils/errorHandler";
 
-export const newAddress = async (req, res) => {
+export const newAddress = async (req: any, res: any) => {
     req.body.user = req.user._id;
 
     const address = await Address.create(req.body);
@@ -12,7 +12,7 @@ export const newAddress = async (req, res) => {
     });
 };
 
-export const getAddresses = async (req, res) => {
+export const getAddresses = async (req: any, res: any) => {
     const addresses = await Address.find({ user: req.user._id });
 
     res.status(200).json({
@@ -20,7 +20,7 @@ export const getAddresses = async (req, res) => {
     })
 };
 
-export const getAddress = async (req, res) => {
+export const getAddress = async (req: any, res: any) => {
     const address = await Address.findById(req.query.id);
 
     if (!address) {
@@ -37,7 +37,7 @@ export const getAddress = async (req, res) => {
     });
 };
 
-export const updateAddress = async (req, res) => {
+export const updateAddress = async (req: any, res: any) => {
     let address = await Address.findById(req.query.id);
 
     if (!address) {
@@ -56,7 +56,7 @@ export const updateAddress = async (req, res) => {
     });
 };
 
-export const deleteAddress = async (req, res) => {
+export const deleteAddress = async (req: any, res: any) => {
     let address = await Address.findById(req.query.id);
 
     if (!address) {

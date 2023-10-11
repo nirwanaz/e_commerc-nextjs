@@ -1,7 +1,7 @@
 "use client";
 
 import { useProduct } from "@/context/ProductContext";
-import { ProductProps } from "@/interfaces";
+import { NewProductProps } from "@/interfaces";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
 const categories = [
@@ -16,7 +16,7 @@ const categories = [
 const NewProduct = () => {
     const { newProduct } = useProduct();
 
-	const [product, setProduct] = useState<ProductProps>({
+	const [product, setProduct] = useState<NewProductProps>({
 		name: "",
 		description: "",
 		seller: "",

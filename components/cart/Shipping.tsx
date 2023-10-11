@@ -7,6 +7,7 @@ import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import BreadCrumbs from "../layouts/BreadCrumbs";
 import axios, { AxiosError } from "axios";
+import Image from "next/image";
 
 const Shipping = ({ addresses }: { addresses: userAddress[] }) => {
 	const { cart } = useContext(CartContext) as CartContextProps;
@@ -155,10 +156,10 @@ const Shipping = ({ addresses }: { addresses: userAddress[] }) => {
 									<figure key={item.name} className="flex items-center mb-4 leading-5">
 										<div>
 											<div className="block relative w-20 h-20 rounded p-1 border border-gray-200">
-												<img
+												<Image
 													width="50"
 													height="50"
-													src={item.image}
+													src={item.image || ""}
 													alt="Title"
 												/>
 												<span className="absolute -top-2 -right-2 w-6 h-6 text-sm text-center flex items-center justify-center text-white bg-gray-400 rounded-full">

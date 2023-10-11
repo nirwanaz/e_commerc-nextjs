@@ -1,7 +1,7 @@
 "use client";
 
 import { useProduct } from '@/context/ProductContext';
-import { ProductProps } from '@/interfaces';
+import { NewProductProps, ProductProps } from '@/interfaces';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -17,7 +17,7 @@ const categories = [
 const UpdateProduct = ({ data }: { data: ProductProps }) => {
     const { updateProduct, error, updated, setUpdated, clearErrors } = useProduct();
 
-    const [product, setProduct] = useState({
+    const [product, setProduct] = useState<NewProductProps>({
         name: data?.name,
         description: data?.description,
         seller: data?.seller,

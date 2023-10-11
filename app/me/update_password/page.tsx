@@ -1,4 +1,4 @@
-import UpdatePassword from '@/components/auth/updatePassword'
+import UpdatePassword from '@/components/auth/UpdatePassword'
 import React from 'react'
 
 const UpdatePasswordPage = () => {

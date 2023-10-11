@@ -5,6 +5,7 @@ import Link from "next/link";
 import React from "react";
 import UserAddresses from "../user/UserAddresses";
 import { userAddress } from "@/interfaces";
+import Image from "next/image";
 
 const Profile = ({ addresses }: { addresses: userAddress[] }) => {
 	const { user } = useAuth();
@@ -12,12 +13,12 @@ const Profile = ({ addresses }: { addresses: userAddress[] }) => {
 		<>
 			<figure className="flex items-start sm:items-center">
 				<div className="relative">
-					<img
+					<Image
 						className="w-16 h-16 rounded-full mr-4"
 						src={
 							user?.avatar?.url || "/images/default.png"
 						}
-						alt={user?.name}
+						alt={user?.name || "profile"}
 					/>
 				</div>
 				<figcaption>

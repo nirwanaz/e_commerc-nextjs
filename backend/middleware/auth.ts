@@ -3,7 +3,7 @@ import { User } from "@/interfaces";
 import { log } from "console";
 import { getToken } from "next-auth/jwt";
 
-const isAuthenticatedUser = async (req, res, next) => {
+const isAuthenticatedUser = async (req: any, res: any, next: any) => {
     const session = await getToken({req, secret: process.env.NEXTAUTH_SECRET});
     
     if (!session) {
@@ -25,7 +25,7 @@ const isAuthenticatedUser = async (req, res, next) => {
 }
 
 const authorizedRoles = (...roles: any) => {
-    return (req, res, next) => {
+    return (req: any, res: any, next: any) => {
         if (!roles.includes(req.user.role)) {
             const errorhandler = new ErrorHandler({
                 message: `Role (${req.user.role}) is not allowed to access this resource`,

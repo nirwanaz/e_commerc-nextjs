@@ -5,8 +5,9 @@ import { cloudinary, uploads } from "../utils/cloudinary";
 import fs from "fs";
 import ErrorHandler from "../utils/errorHandler";
 import { UploadApiErrorResponse } from "cloudinary";
+import { ProductReview } from "@/interfaces";
 
-export const newProduct = async (req, res, next) => {
+export const newProduct = async (req: any, res: any) => {
 	req.body.user = req.user._id;
 
 	const product = await Product.create(req.body);
@@ -16,7 +17,7 @@ export const newProduct = async (req, res, next) => {
 	});
 };
 
-export const uploadProductImages = async (req, res, next) => {
+export const uploadProductImages = async (req: any, res: any, next: any) => {
 	const productId = req.query.id;
 
 	if (!productId) {
@@ -76,7 +77,7 @@ export const uploadProductImages = async (req, res, next) => {
 
 }
 
-export const getProducts = async (req, res, next) => {
+export const getProducts = async (req: any, res: any) => {
 
     const resPerPage = 3;
     const productsCount = await Product.countDocuments();
@@ -98,7 +99,7 @@ export const getProducts = async (req, res, next) => {
 	});
 };
 
-export const getProduct = async (req, res, next) => {
+export const getProduct = async (req: any, res: any, next: any) => {
 	const product = await Product.findById(req.query.id);
 
 	if (!product) {
@@ -113,7 +114,7 @@ export const getProduct = async (req, res, next) => {
 	});
 };
 
-export const updateProduct = async (req, res, next) => {
+export const updateProduct = async (req: any, res: any, next: any) => {
 	const productId = req.query.id;
 
 	if (!productId) {
@@ -139,7 +140,7 @@ export const updateProduct = async (req, res, next) => {
 	});
 }
 
-export const deleteProduct = async (req, res, next) => {
+export const deleteProduct = async (req: any, res: any, next: any) => {
 	const productId = req.query.id;
 
 	if (!productId) {
@@ -172,7 +173,7 @@ export const deleteProduct = async (req, res, next) => {
 	})
 }
 
-export const createProductReview = async (req, res, next) => {
+export const createProductReview = async (req: any, res: any, next: any) => {
 	const { rating, comment, productId } = req.body;
 
 	const review = {
@@ -195,7 +196,7 @@ export const createProductReview = async (req, res, next) => {
 	);
 
 	if (isReviewed) {
-		product?.reviews.forEach((review) => {
+		product?.reviews.forEach((review: ProductReview) => {
 			if (review.user.toString() === req.user._id.toString()) {
 				review.comment = comment;
 				review.rating = rating;
@@ -205,7 +206,7 @@ export const createProductReview = async (req, res, next) => {
 		product?.reviews.push(review)
 	}
 
-	product.ratings = product?.reviews?.reduce((acc, item) => item.rating + acc, 0) / product?.reviews.length;
+	product.ratings = product?.reviews?.reduce((acc: number, item: ProductReview) => item.rating + acc, 0) / product?.reviews.length;
 
 	await product?.save();
 

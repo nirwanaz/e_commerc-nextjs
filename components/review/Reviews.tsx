@@ -1,4 +1,5 @@
 import { ProductReview } from '@/interfaces'
+import Image from 'next/image'
 import React from 'react'
 import { Rating } from 'react-simple-star-rating'
 
@@ -8,7 +9,7 @@ const Reviews = ({ reviews }: { reviews: ProductReview[] }) => {
             {reviews?.map((review, index) => (
                 <article key={index} className="block p-6 bg-white max-w-sm rounded-lg border border-gray-200 shadow-md mb-5">
                     <div className="flex items-center mb-4 space-x-4">
-                        <img
+                        <Image
                             className="w-10 h-10 rounded-full"
                             src={
                                 review?.user?.avatar

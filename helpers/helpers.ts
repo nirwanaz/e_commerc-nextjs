@@ -30,3 +30,17 @@ export const getUserReview = (reviews: ProductReview[], userId: string): Product
 
     return userReview;
 }
+
+export const getCookieName = () => {
+    let cookieName = "";
+
+    if (process.env.NODE_ENV === "development") {
+        cookieName = "next-auth.session-token";
+    }
+
+    if (process.env.NODE_ENV === "production") {
+        cookieName = "__Secure-next-auth.session-token";
+    }
+
+    return cookieName;
+}

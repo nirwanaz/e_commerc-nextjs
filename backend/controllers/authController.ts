@@ -2,11 +2,10 @@ import User from "../models/user";
 import fs from "fs";
 import { uploads } from "../utils/cloudinary";
 import bcrypt from "bcryptjs";
-import { log } from "console";
 import ErrorHandler from "../utils/errorHandler";
 import APIFilters from "../utils/APIFIlters";
 
-export const registerUser = async (req, res) => {
+export const registerUser = async (req: any, res: any) => {
     const { name, email, password } = req.body;
 
     const user = await User.create({
@@ -20,7 +19,7 @@ export const registerUser = async (req, res) => {
     });
 };
 
-export const updateProfile = async (req, res) => {
+export const updateProfile = async (req: any, res: any) => {
     const newUserData = {
         name: req.body.name,
         email: req.body.email,
@@ -56,7 +55,7 @@ export const updateProfile = async (req, res) => {
     });
 }
 
-export const updatePassword = async (req, res) => {
+export const updatePassword = async (req: any, res: any) => {
     const user = await User.findById(req.user._id).select("+password");
 
     const isPasswordMatched = await bcrypt.compare(
@@ -76,7 +75,7 @@ export const updatePassword = async (req, res) => {
     })
 }
 
-export const getUsers = async (req, res) => {
+export const getUsers = async (req: any, res: any) => {
     const resPerPage = 2;
     const usersCount = await User.countDocuments();
 
@@ -93,7 +92,7 @@ export const getUsers = async (req, res) => {
     });
 }
 
-export const getUser = async (req, res, next) => {
+export const getUser = async (req: any, res: any, next: any) => {
     const userId = req.query.id;
 
     if (!userId) {
@@ -118,7 +117,7 @@ export const getUser = async (req, res, next) => {
     })
 }
 
-export const updateUser = async (req, res, next) => {
+export const updateUser = async (req: any, res: any, next: any) => {
     const userId = req.query.id;
 
     if (!userId) {
@@ -145,7 +144,7 @@ export const updateUser = async (req, res, next) => {
     })
 }
 
-export const deleteUser = async (req, res, next) => {
+export const deleteUser = async (req: any, res: any, next: any) => {
     const userId = req.query.id;
 
     if (!userId) {

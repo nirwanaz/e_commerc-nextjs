@@ -2,7 +2,8 @@
 const nextConfig = {
     env: {
         API_URL: "http://localhost:3000",
-        DB_URI: "mongodb://localhost:27017/buyitnow",
+        DB_LOCAL_URI: "mongodb://localhost:27017/buyitnow",
+        DB_URI: "mongodb+srv://berlin:rahasia@buyitnow.kazmnjb.mongodb.net/?retryWrites=true&w=majority",
 
         CLOUD_NAME: "dl2uzcyhl",
         CLOUDINARY_API_KEY: "999747855934663",

@@ -2,6 +2,7 @@
 
 import { CartContext } from '@/context/CartContext';
 import { CartContextProps, CartItemProps } from '@/interfaces';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext } from 'react'
 
@@ -61,14 +62,14 @@ const Cart = () => {
             <div className="flex flex-col md:flex-row gap-4">
               <main className="md:w-3/4">
                 <article className="border border-gray-200 bg-white shadow-sm rounded mb-5 p-3 lg:p-5">
-                  {cart?.cartItems?.map((cartItem) => (
-                    <div>
+                  {cart?.cartItems?.map((cartItem, index) => (
+                    <div key={index}>
                       <div className="flex flex-wrap lg:flex-row gap-5  mb-4">
                         <div className="w-full lg:w-2/5 xl:w-2/4">
                           <figure className="flex leading-5">
                             <div>
                               <div className="block w-16 h-16 rounded border border-gray-200 overflow-hidden">
-                                <img src={cartItem.image} alt={cartItem.name} />
+                                <Image src={cartItem.image || ""} alt={cartItem.name} />
                               </div>
                             </div>
                             <figcaption className="ml-3">

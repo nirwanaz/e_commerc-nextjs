@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductContextProps, ProductProps, ProductReview, userAddress } from "@/interfaces";
+import { NewProductProps, ProductContextProps, userAddress } from "@/interfaces";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { ReactNode, createContext, useContext, useState } from "react";
@@ -14,7 +14,7 @@ export const ProductProvider:React.FC<{ children: ReactNode }> = ({ children }) 
 
     const router = useRouter();
 
-    const newProduct = async (product: ProductProps) => {
+    const newProduct = async (product: NewProductProps) => {
         try {
             const { data } = await axios.post<userAddress>(
                 `${process.env.API_URL}/api/admin/products`,
@@ -60,7 +60,7 @@ export const ProductProvider:React.FC<{ children: ReactNode }> = ({ children }) 
         }
     }
 
-    const updateProduct = async (product: ProductProps, id: string) => {
+    const updateProduct = async (product: NewProductProps, id: string) => {
         try {
             const { data } = await axios.put(`${process.env.API_URL}/api/admin/products/${id}`,
             product);

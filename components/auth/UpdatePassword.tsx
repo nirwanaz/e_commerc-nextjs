@@ -4,7 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import React, { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const updatePassword = () => {
+const UpdatePassword = () => {
 	const { error, updatePassword, clearErrors } = useAuth();
 
 	const [currentPassword, setCurrentPassword] = useState<string>("");
@@ -74,4 +74,4 @@ const updatePassword = () => {
 	);
 };
 
-export default updatePassword;
+export default UpdatePassword;
