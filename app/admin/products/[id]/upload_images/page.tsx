@@ -1,7 +1,7 @@
 import UploadImages from '@/components/admin/UploadImages'
 import React from 'react'
 
-interface HomePageProps extends URLSearchParams{
+interface HomePageProps {
     params: {
         id: string
     }
