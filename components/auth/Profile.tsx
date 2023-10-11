@@ -19,6 +19,8 @@ const Profile = ({ addresses }: { addresses: userAddress[] }) => {
 							user?.avatar?.url || "/images/default.png"
 						}
 						alt={user?.name || "profile"}
+						width={64}
+						height={64}
 					/>
 				</div>
 				<figcaption>

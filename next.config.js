@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
-        API_URL: "http://localhost:3000",
+        API_LOCAL_URL: "http://localhost:3000",
         DB_LOCAL_URI: "mongodb://localhost:27017/buyitnow",
+        API_URL: "https://buyitnow-nirwanaz.vercel.app",
         DB_URI: "mongodb+srv://berlin:rahasia@buyitnow.kazmnjb.mongodb.net/?retryWrites=true&w=majority",
+
+        NEXTAUTH_URL: "https://buyitnow-nirwanaz.vercel.app",
 
         CLOUD_NAME: "dl2uzcyhl",
         CLOUDINARY_API_KEY: "999747855934663",

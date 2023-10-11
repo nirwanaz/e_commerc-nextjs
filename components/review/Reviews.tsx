@@ -12,11 +12,12 @@ const Reviews = ({ reviews }: { reviews: ProductReview[] }) => {
                         <Image
                             className="w-10 h-10 rounded-full"
                             src={
-                                review?.user?.avatar
-                                    ? review?.user?.avatar?.url
-                                    : "/images/default.png"
+                                    review?.user?.avatar?.url
+                                    || "/images/default.png"
                             }
                             alt="user"
+                            width={40}
+                            height={40}
                         />
                         <div className="space-y-1 font-medium">
                             <p>
