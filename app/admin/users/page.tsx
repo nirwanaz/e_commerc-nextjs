@@ -1,4 +1,5 @@
 import Users from '@/components/admin/Users';
+import { getCookieName } from '@/helpers/helpers';
 import axios from 'axios';
 import { cookies } from 'next/headers';
 import queryString from 'query-string';
@@ -6,7 +7,9 @@ import queryString from 'query-string';
 const getUsers = async (searchParams: any) => {
     const nextCookies = cookies();
 
-    const nextAuthSessionToken = nextCookies.get("next-auth.session-token");
+    const cookieName = getCookieName();
+
+    const nextAuthSessionToken = nextCookies.get(cookieName);
 
     const urlParams = {
         page: searchParams.page || 1,
@@ -17,7 +20,7 @@ const getUsers = async (searchParams: any) => {
     const { data } = await axios.get(`${process.env.API_URL}/api/admin/users?${searchQuery}`,
     {
         headers: {
-            Cookie: `next-auth.session-token=${nextAuthSessionToken?.value}`,
+            Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
         },
     })
 

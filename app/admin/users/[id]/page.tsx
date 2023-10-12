@@ -1,16 +1,19 @@
 import UpdateUser from '@/components/admin/UpdateUser';
+import { getCookieName } from '@/helpers/helpers';
 import axios from 'axios';
 import { cookies } from 'next/headers';
 
 const getUser = async (id: string) => {
     const nextCookies = cookies();
 
-    const nextAuthSessionToken = nextCookies.get("next-auth.session-token");
+    const cookieName = getCookieName();
+
+    const nextAuthSessionToken = nextCookies.get(cookieName);
 
     const { data } = await axios.get(`${process.env.API_URL}/api/admin/users/${id}`,
     {
         headers: {
-            Cookie: `next-auth.session-token=${nextAuthSessionToken?.value}`,
+            Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
         },
     })
 

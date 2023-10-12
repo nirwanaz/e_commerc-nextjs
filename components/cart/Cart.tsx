@@ -7,44 +7,44 @@ import Link from 'next/link';
 import React, { useContext } from 'react'
 
 const Cart = () => {
-    const { addItemToCart, deleteItemFromCart, cart, saveOnCheckout } = useContext(CartContext) as CartContextProps;
+  const { addItemToCart, deleteItemFromCart, cart, saveOnCheckout } = useContext(CartContext) as CartContextProps;
 
-    const increaseQty = (cartItem: CartItemProps) => {
-        const newQty = cartItem?.quantity + 1;
-        const item = { ...cartItem, quantity: newQty };
+  const increaseQty = (cartItem: CartItemProps) => {
+    const newQty = cartItem?.quantity + 1;
+    const item = { ...cartItem, quantity: newQty };
 
-        if (newQty > Number(cartItem.stock)) return;
+    if (newQty > Number(cartItem.stock)) return;
 
-        addItemToCart(item);
-    }
+    addItemToCart(item);
+  }
 
-    const decreaseQty = (cartItem: CartItemProps) => {
-        const newQty = cartItem?.quantity - 1;
-        const item = { ...cartItem, quantity: newQty };
+  const decreaseQty = (cartItem: CartItemProps) => {
+    const newQty = cartItem?.quantity - 1;
+    const item = { ...cartItem, quantity: newQty };
 
-        if (newQty <= 0) return;
+    if (newQty <= 0) return;
 
-        addItemToCart(item); 
-    }
+    addItemToCart(item);
+  }
 
-    const amountWithoutTax = cart?.cartItems?.reduce(
-        (acc, item) => acc + item.quantity * item.price,
-        0
-    )
+  const amountWithoutTax = cart?.cartItems?.reduce(
+    (acc, item) => acc + item.quantity * item.price,
+    0
+  )
 
-    const taxAmount = (amountWithoutTax * 0.15).toFixed(2);
+  const taxAmount = (amountWithoutTax * 0.15).toFixed(2);
 
-    const totalAmount = (Number(amountWithoutTax) + Number(taxAmount)).toFixed(2);
+  const totalAmount = (Number(amountWithoutTax) + Number(taxAmount)).toFixed(2);
 
-    const checkoutHandler = () => {
-      const data = {
-        amount: amountWithoutTax,
-        tax: taxAmount,
-        totalAmount: totalAmount
-      };
+  const checkoutHandler = () => {
+    const data = {
+      amount: amountWithoutTax,
+      tax: taxAmount,
+      totalAmount: totalAmount
+    };
 
-      saveOnCheckout(data);
-    }
+    saveOnCheckout(data);
+  }
 
   return (
     <>
@@ -69,7 +69,7 @@ const Cart = () => {
                           <figure className="flex leading-5">
                             <div>
                               <div className="block w-16 h-16 rounded border border-gray-200 overflow-hidden">
-                                <Image src={cartItem.image || ""} alt={cartItem.name} />
+                                <Image src={cartItem.image || "/images/default_product.png"} alt={cartItem.name} width={64} height={64} />
                               </div>
                             </div>
                             <figcaption className="ml-3">

@@ -40,7 +40,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       product: product?._id,
       name: product?.name,
       price: product?.price,
-      image: product.images ? product.images[0].url : "",
+      image: product.images.length > 0 ? product.images[0].url : "",
       stock: product?.stock,
       seller: product?.seller,
       quantity: 1
@@ -66,7 +66,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                   ref={imgRef}
                   className="object-cover inline-block"
                   src={
-                    product?.images
+                    product?.images.length > 0
                       ? product?.images[0].url
                       : "/images/default_product.png"
                   }
@@ -127,11 +127,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               <p className="mb-4 text-gray-500">{product?.description}</p>
 
               <div className="flex flex-wrap gap-2 mb-5">
-                <button className="px-4 py-2 inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700" onClick={addToCartHandler} disabled={!inStock}>
-                  <i className="mr-2">
-                    <FaShoppingCart />
-                  </i>
-                  Add to cart
+                <button type="button" className="px-4 py-2 inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700" onClick={addToCartHandler} disabled={!inStock}>
+                  <div className="flex">
+                    <i className="mr-2 text-xl"><FaShoppingCart /></i>
+                    Add to cart
+                  </div>
                 </button>
               </div>
 

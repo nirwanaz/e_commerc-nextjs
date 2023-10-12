@@ -12,7 +12,7 @@ const getProductDetails = async (id: string) => {
 const ProductDetailsPage = async ({ params }: { params: { id: string } }) => {
     const isValidId = mongoose.isValidObjectId(params?.id);
 
-    if (isValidId) redirect("/");
+    if (!isValidId) redirect("/");
 
     const product = await getProductDetails(params.id);
 

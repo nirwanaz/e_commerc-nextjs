@@ -20,9 +20,9 @@ const Shipping = ({ addresses }: { addresses: userAddress[] }) => {
 
 	const checkoutHandler = async () => {
 		if (!shippingInfo) {
-			return toast.error("Please select your shippiing address");
-		} 
-		
+			return toast.error("Please select your shipping address");
+		}
+
 		// move to stripe checkoutpage
 		try {
 			const { data } = await axios.post(
@@ -37,12 +37,12 @@ const Shipping = ({ addresses }: { addresses: userAddress[] }) => {
 		} catch (error) {
 			const axiosError = error as AxiosError<{ message: string }>;
 
-            if (axiosError.response) {
-                console.log(axiosError.response.data.message)
-            } else {
-                console.log("An Error occured during load user")
-            }
-        }		
+			if (axiosError.response) {
+				console.log(axiosError.response.data.message)
+			} else {
+				console.log("An Error occured during load user")
+			}
+		}
 	};
 
 	const breadCrumbs = [
@@ -66,7 +66,7 @@ const Shipping = ({ addresses }: { addresses: userAddress[] }) => {
 								<div className="grid sm:grid-cols-2 gap-4 mb-6">
 									{addresses?.map((address) => (
 										<label
-                                            key={address._id}
+											key={address._id}
 											className="flex p-3 border border-gray-200 rounded-md bg-gray-50 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"
 											onClick={() =>
 												setShippingAddress(address)
@@ -159,7 +159,7 @@ const Shipping = ({ addresses }: { addresses: userAddress[] }) => {
 												<Image
 													width="50"
 													height="50"
-													src={item.image || ""}
+													src={item.image || "/images/default_product.png"}
 													alt="Title"
 												/>
 												<span className="absolute -top-2 -right-2 w-6 h-6 text-sm text-center flex items-center justify-center text-white bg-gray-400 rounded-full">
