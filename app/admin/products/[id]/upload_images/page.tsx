@@ -1,13 +1,13 @@
 import UploadImages from '@/components/admin/UploadImages'
+import mongoose from 'mongoose'
+import { redirect } from 'next/navigation';
 import React from 'react'
 
-interface HomePageProps {
-    params: {
-        id: string
-    }
-}
+const HomePage = ({ params }: { params: { id: string }}) => {
+  const isValidId = mongoose.isValidObjectId(params?.id);
 
-const HomePage = ({ params }: HomePageProps) => {
+  if (!isValidId) redirect('/admin/products');
+
   return <UploadImages id={params.id} />
 }
 

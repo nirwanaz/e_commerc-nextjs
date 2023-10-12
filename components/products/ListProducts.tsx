@@ -16,7 +16,7 @@ interface ListProductsProps {
 
 const ListProducts = ({ data }: ListProductsProps) => {
 
-  if (!data) return <div className="text-center text-gray-600">Loading...</div>
+  if (!data) return <div className="text-center text-gray-600 dark:text-white">Loading...</div>
 
   if (!data.products || data.products.length === 0) {
     return <div className="text-center text-gray">No Product Available.</div>

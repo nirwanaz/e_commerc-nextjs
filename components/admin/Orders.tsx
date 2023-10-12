@@ -27,7 +27,7 @@ const Orders = ({ orders }: OrdersProps) => {
     }, [error]);
 
     const deleteHandler = (id: string) => {
-        deleteHandler(id)
+        deleteOrder(id)
     }
 
     return (

@@ -66,8 +66,8 @@ const OrderItem = ({ order }: { order: OrderProps }) => {
 							<div className="block w-20 h-20 rounded border border-gray-200 overflow-hidden p-3">
 								<Image
 									src={item?.image}
-									height="60"
-									width="60"
+									height={80}
+									width={80}
 									alt={item.name}
 								/>
 							</div>

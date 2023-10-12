@@ -1,4 +1,5 @@
 import ListOrders from "@/components/orders/ListOrders";
+import { getCookieName } from "@/helpers/helpers";
 import axios from "axios";
 import { cookies } from "next/headers";
 import queryString from "query-string";
@@ -7,7 +8,9 @@ import React from "react";
 const getOrders = async (searchParams: any) => {
 	const nextCookies = cookies();
 
-	const nextAuthSessionToken = nextCookies.get("next-auth.session-token");
+	const cookieName = getCookieName();
+
+	const nextAuthSessionToken = nextCookies.get(cookieName);
 
 	const urlParams = {
 		page: searchParams.page || 1,
@@ -19,7 +22,7 @@ const getOrders = async (searchParams: any) => {
 		`${process.env.API_URL}/api/orders/me?${searchQuery}`,
 		{
 			headers: {
-				Cookie: `next-auth.session-token=${nextAuthSessionToken?.value}`,
+				Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
 			},
 		}
 	);

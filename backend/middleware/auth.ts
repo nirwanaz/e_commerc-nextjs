@@ -24,7 +24,7 @@ const isAuthenticatedUser = async (req: any, res: any, next: any) => {
     await next();
 }
 
-const authorizedRoles = (...roles: any) => {
+const authorizedRoles = (...roles: string[]) => {
     return (req: any, res: any, next: any) => {
         if (!roles.includes(req.user.role)) {
             const errorhandler = new ErrorHandler({

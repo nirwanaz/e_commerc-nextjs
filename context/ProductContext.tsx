@@ -21,7 +21,7 @@ export const ProductProvider:React.FC<{ children: ReactNode }> = ({ children }) 
                 product,
             );
 
-            if (data) router.replace("/admin/products");
+            if (data) router.push("/admin/products");
         } catch (error) {
             const axiosError = error as AxiosError<{ message: string }>;
 
@@ -46,7 +46,7 @@ export const ProductProvider:React.FC<{ children: ReactNode }> = ({ children }) 
 
             if (data?.data) {
                 setLoading(false);
-                router.replace("/admin/products");
+                router.push("/admin/products");
             }
 
         } catch (error) {

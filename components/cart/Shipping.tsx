@@ -157,8 +157,8 @@ const Shipping = ({ addresses }: { addresses: userAddress[] }) => {
 										<div>
 											<div className="block relative w-20 h-20 rounded p-1 border border-gray-200">
 												<Image
-													width="50"
-													height="50"
+													width={80}
+													height={80}
 													src={item.image || "/images/default_product.png"}
 													alt="Title"
 												/>

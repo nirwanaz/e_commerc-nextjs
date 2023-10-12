@@ -63,7 +63,7 @@ export const uploadProductImages = async (req: any, res: any, next: any) => {
 
 		product = await Product.findByIdAndUpdate(productId, { images: urls });
 
-		res.status(200).json({
+		return res.status(200).json({
 			data: urls,
 			product,
 		})
