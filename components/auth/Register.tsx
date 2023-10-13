@@ -31,12 +31,12 @@ const Register = () => {
 			className="mt-10 mb-20 p-4 md:p-7 mx-auto rounded bg-white shadow-lg"
 		>
 			<form onSubmit={submitHandler}>
-				<h2 className="mb-5 text-2xl font-semibold">
+				<h2 className="mb-5 text-2xl font-semibold dark:text-gray-700">
 					Register Account
 				</h2>
 
 				<div className="mb-4">
-					<label className="block mb-1"> Full Name </label>
+					<label className="block mb-1 dark:text-gray-700"> Full Name </label>
 					<input
 						className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
 						type="text"
@@ -48,7 +48,7 @@ const Register = () => {
 				</div>
 
 				<div className="mb-4">
-					<label className="block mb-1"> Email </label>
+					<label className="block mb-1 dark:text-gray-700"> Email </label>
 					<input
 						className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
 						type="text"
@@ -60,9 +60,9 @@ const Register = () => {
 				</div>
 
 				<div className="mb-4">
-					<label className="block mb-1"> Password </label>
+					<label className="block mb-1 dark:text-gray-700"> Password </label>
 					<input
-						className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+						className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full dark:text-gray-700"
 						type="password"
 						placeholder="Type your password"
 						minLength={6}
@@ -81,8 +81,8 @@ const Register = () => {
 
 				<hr className="mt-4" />
 
-				<p className="text-center mt-5">
-					Already have an account?
+				<p className="text-center mt-5 dark:text-gray-700">
+					Already have an account?&nbsp;
 					<Link href="/login" className="text-blue-500">
 						Sign in
 					</Link>

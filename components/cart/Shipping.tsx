@@ -59,7 +59,7 @@ const Shipping = ({ addresses }: { addresses: userAddress[] }) => {
 					<div className="flex flex-col md:flex-row gap-4 lg:gap-8">
 						<main className="md:w-2/3">
 							<article className="border border-gray-200 bg-white shadow-sm rounded p-4 lg:p-6 mb-5">
-								<h2 className="text-xl font-semibold mb-5">
+								<h2 className="text-xl font-semibold mb-5 text-gray-700">
 									Shipping information
 								</h2>
 

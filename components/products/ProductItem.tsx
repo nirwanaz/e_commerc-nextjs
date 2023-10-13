@@ -43,7 +43,7 @@ const ProductItem = ({ product }: { product: ProductProps }) => {
 					<div className="p-4">
 						<Link
 							href={`/product/${product._id}`}
-							className="hover:text-blue-600"
+							className="hover:text-blue-600 dark:text-gray-600"
 						>
 							{product.name}
 						</Link>

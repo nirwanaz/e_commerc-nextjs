@@ -80,7 +80,7 @@ const Header = () => {
                                     height={20}
                                 />
                                 <div className="space-y-1">
-                                    <p>
+                                    <p className='text-gray-700'>
                                         {user?.name}
                                         <time className="block text-sm text-gray-500 dark:text-gray-400">
                                             {user?.email}

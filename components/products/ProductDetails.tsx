@@ -49,6 +49,9 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
   const breadCrumbs = [
     { name: "Home", url: "/" },
+    { name: `${product?.category}`,
+      url: `/?page=1&category=${product?.category}`
+    },
     {
       name: `${product?.name?.substring(0, 100)} ...`,
       url: `/products/${product?._id}`,
@@ -94,7 +97,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               </div>
             </aside>
             <main>
-              <h2 className="font-semibold text-2xl mb-4">{product?.name}</h2>
+              <h2 className="font-semibold text-2xl mb-4 dark:text-gray-700">{product?.name}</h2>
 
               <div className="flex flex-wrap items-center space-x-2 mb-2">
                 <div className="ratings">
@@ -104,11 +107,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                     size={20}
                     SVGstyle={{ 'display': 'inline' }}
                     allowFraction
+                    showTooltip
                     readonly
                     disableFillHover
                   />
                 </div>
-                <span className="text-yellow-500">{product?.ratings}</span>
 
                 <svg
                   width="6px"
@@ -122,7 +125,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 <span className="text-green-500">Verified</span>
               </div>
 
-              <p className="mb-4 font-semibold text-xl">${product?.price}</p>
+              <p className="mb-4 font-semibold text-xl text-gray-700">${product?.price}</p>
 
               <p className="mb-4 text-gray-500">{product?.description}</p>
 
@@ -138,7 +141,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               <ul className="mb-5">
                 <li className="mb-1">
                   {" "}
-                  <b className="font-medium w-36 inline-block">Stock</b>
+                  <b className="font-medium w-36 inline-block text-gray-700">Stock:</b>
                   {inStock ? (
                     <span className="text-green-500">In Stock</span>
                   ) : (
@@ -147,12 +150,12 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 </li>
                 <li className="mb-1">
                   {" "}
-                  <b className="font-medium w-36 inline-block">Category:</b>
+                  <b className="font-medium w-36 inline-block text-gray-700">Category:</b>
                   <span className="text-gray-500">{product?.category}</span>
                 </li>
                 <li className="mb-1">
                   {" "}
-                  <b className="font-medium w-36 inline-block">
+                  <b className="font-medium w-36 inline-block text-gray-700">
                     Seller / Brand:
                   </b>
                   <span className="text-gray-500">{product?.seller}</span>

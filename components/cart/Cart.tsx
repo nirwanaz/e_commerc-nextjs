@@ -50,7 +50,7 @@ const Cart = () => {
     <>
       <section className="py-5 sm:py-7 bg-blue-100">
         <div className="container max-w-screen-xl mx-auto px-4">
-          <h2 className="text-3xl font-semibold mb-2">
+          <h2 className="text-3xl font-semibold mb-2 dark:text-gray-700">
             {cart?.cartItems?.length || 0} Item(s) in Cart
           </h2>
         </div>
@@ -73,7 +73,7 @@ const Cart = () => {
                               </div>
                             </div>
                             <figcaption className="ml-3">
-                              <p>
+                              <p className='text-gray-700'>
                                 <a href="#" className="hover:text-blue-600">
                                   {cartItem.name}
                                 </a>
@@ -116,12 +116,11 @@ const Cart = () => {
                         </div>
                         <div>
                           <div className="leading-5">
-                            <p className="font-semibold not-italic">
+                            <p className="font-semibold not-italic text-gray-700">
                               ${(cartItem.price * cartItem.quantity).toFixed(2)}
                             </p>
                             <small className="text-gray-400">
-                              {" "}
-                              ${cartItem.price} / per item{" "}
+                              ${cartItem.price} / per item&nbsp;
                             </small>
                           </div>
                         </div>
@@ -165,7 +164,7 @@ const Cart = () => {
                       <span>TAX:</span>
                       <span>${taxAmount}</span>
                     </li>
-                    <li className="text-lg font-bold border-t flex justify-between mt-3 pt-3">
+                    <li className="text-lg text-gray-700 font-bold border-t flex justify-between mt-3 pt-3">
                       <span>Total price:</span>
                       <span>${totalAmount}</span>
                     </li>
